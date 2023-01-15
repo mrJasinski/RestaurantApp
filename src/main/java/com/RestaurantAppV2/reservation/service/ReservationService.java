@@ -5,6 +5,9 @@ import com.RestaurantAppV2.reservation.dto.ReservationDTO;
 import com.RestaurantAppV2.reservation.Reservation;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 public class ReservationService
 {
@@ -29,5 +32,11 @@ public class ReservationService
     {
 //        TODO
         return null;
+    }
+
+    public boolean checkIfTableHasReservationsUnderTwoHoursFromNowByName(String name)
+    {
+//        TODO wyniesienie time do HQL?
+       return this.reservationRepository.findReservationsByTableNameAndDay(name, LocalDateTime.now(), LocalDateTime.now().plusHours(2));
     }
 }

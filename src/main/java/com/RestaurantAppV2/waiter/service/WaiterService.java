@@ -32,7 +32,7 @@ public class WaiterService
 
     WaiterDTO getWaiterWithHighestBillsSumByDate(LocalDate date)
     {
-        return this.waiterRepository.findWaiterWithHighestBillsSumByDate(date).toDto();
+        return this.waiterRepository.findWaiterWithHighestBillsSumByDate(date).stream().findFirst().orElseThrow().toDto();
     }
 
     HashMap<WaiterDTO, Integer> getWaitersWithBillsNumbersAsDtoByDate(LocalDate date)

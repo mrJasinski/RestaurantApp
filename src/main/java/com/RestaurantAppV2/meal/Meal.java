@@ -18,8 +18,9 @@ public class Meal
     @Enumerated(EnumType.STRING)
     private MealType type;
     private double price;
-    @ManyToMany(mappedBy = "meals")
-    private Set<Bill> bills;
+//    patrz bill
+//    @ManyToMany(mappedBy = "meals")
+//    private Set<Bill> bills;
     @OneToMany(mappedBy = "meal")
     private Set<Order> orders;
 
@@ -49,8 +50,8 @@ public class Meal
         return this.price;
     }
 
-    public Set<Bill> getBills()
-    {
-        return this.bills;
-    }
+//    public Set<Bill> getBills()
+//    {
+//        return this.bills;
+//    }
 }

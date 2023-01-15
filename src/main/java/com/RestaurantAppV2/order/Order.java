@@ -14,7 +14,7 @@ public class Order
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String number;
+    private String number;  //numer kolejny
     private LocalDateTime createdAt;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;

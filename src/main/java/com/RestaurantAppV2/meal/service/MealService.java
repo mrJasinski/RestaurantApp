@@ -40,7 +40,11 @@ public class MealService
     {
         var result = new HashMap<MealType, List<MealDTO>>();
 
-        getMealTypesList().forEach(t -> result.put(t, getMealsByTypeAsDto(t)));
+        getMealTypesList().forEach(t ->
+        {
+            if (getMealsByTypeAsDto(t).size() != 0)
+                result.put(t, getMealsByTypeAsDto(t));
+        });
 
         return  result;
     }

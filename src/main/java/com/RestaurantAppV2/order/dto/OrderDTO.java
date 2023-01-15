@@ -16,6 +16,15 @@ public class OrderDTO
     private MealDTO meal;
     private BillDTO bill;
 
+    public OrderDTO(String number, MealDTO meal, BillDTO bill)
+    {
+        this.number = number;
+        this.createdAt = LocalDateTime.now();
+        this.status = OrderStatus.ORDERED;
+        this.meal = meal;
+        this.bill = bill;
+    }
+
     public Order toOrder()
     {
 //        TODO

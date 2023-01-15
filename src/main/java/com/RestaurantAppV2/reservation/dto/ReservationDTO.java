@@ -11,6 +11,17 @@ public class ReservationDTO
     private String name;
     private RestaurantTableDTO table;
 
+    public ReservationDTO()
+    {
+    }
+
+    public ReservationDTO(LocalDateTime time, String name, RestaurantTableDTO table)
+    {
+        this.time = time;
+        this.name = name;
+        this.table = table;
+    }
+
     public Reservation toReservation()
     {
 //        TODO

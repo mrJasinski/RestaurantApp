@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Optional;
 
 @Repository
@@ -17,7 +18,7 @@ public interface SqlBillRepository extends BillRepository, JpaRepository<Bill, I
     Optional<Bill> findOpenBillByTableId(Integer tableId);
 
     @Override
-    @Query(value = "", nativeQuery = true)
+    @Query(value = "SELECT EXISTS(SELECT * FROM bills WHERE table_id = :tableId AND status = :status)", nativeQuery = true)
     Boolean existsByTableIdAndStatus(Integer tableId, String status);
 
     @Override
@@ -28,9 +29,17 @@ public interface SqlBillRepository extends BillRepository, JpaRepository<Bill, I
     @Query(value = "SELECT COUNT(*) FROM bills WHERE closed_at = :date", nativeQuery = true)
     Integer countBillByClosedAtDate(LocalDate date);
 
-//    TODO kompilator nie przepuszcza - dodać sqlkę
+    @Override
+    @Query(value = "SELECT SUM(SELECT SUM(price) FROM meals AS m WHERE m.bill_id = b.id) FROM bills AS b WHERE closed_at = :date", nativeQuery = true)
+    Double sumBillsByClosedAtDate(LocalDate date);
 
     @Override
-    @Query(value = "", nativeQuery = true)
-    Double sumBillsByClosedAtDate(LocalDate date);
+    @Query(value = "SELECT MAX(b.number) FROM Bill b WHERE b.table.name = :tableName AND extract(MONTH FROM b.createdAt) = :month " +
+            "AND extract(YEAR FROM b.createdAt) = :year")
+    Optional<Integer> findLastBillNumberByTableNameAndMonthAndYear(String tableName, Month month, int year);
+
+    @Override
+    @Query(value = "UPDATE Bill b SET b.amount = :amount WHERE b.number = :number")
+    void updateBillAmountInDb(String number, Double amount);
+
 }

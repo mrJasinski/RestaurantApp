@@ -12,7 +12,7 @@ public interface WaiterRepository
 
     Waiter save(Waiter entity);
 
-    Waiter findWaiterWithHighestBillsSumByDate(LocalDate date);
+    Set<Waiter> findWaiterWithHighestBillsSumByDate(LocalDate date);
 
     HashMap<Waiter, Integer> findWaitersWithBillsNumbersByDate(LocalDate date);
 }
